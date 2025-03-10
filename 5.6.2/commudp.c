@@ -262,3 +262,35 @@ static void _CommUDPSetConnID(CommUDPRef *ref, const char *pStrConn)
         ref->connident = NetHash(pConnID+1);
     }
 }
+
+void _CommUDPResetTransfer(void)
+
+{
+  int iVar1;
+  int unaff_ESI;
+  
+  *(undefined4 *)(unaff_ESI + 0xcc) = 0;
+  *(undefined4 *)(unaff_ESI + 0xd0) = 0;
+  *(undefined4 *)(unaff_ESI + 0xd4) = 0;
+  *(undefined4 *)(unaff_ESI + 0xdc) = 0x100;
+  *(undefined4 *)(unaff_ESI + 0xe0) = 0x80;
+  *(undefined4 *)(unaff_ESI + 0xa8) = 0;
+  *(undefined4 *)(unaff_ESI + 0xac) = 0;
+  *(undefined4 *)(unaff_ESI + 0xb4) = 0x100;
+  *(undefined4 *)(unaff_ESI + 0xb8) = 0x80;
+  *(undefined4 *)(unaff_ESI + 0xc0) = 0;
+  iVar1 = NetTick();
+  *(int *)(unaff_ESI + 0xe8) = iVar1 + -5000;
+  iVar1 = NetTick();
+  *(int *)(unaff_ESI + 0xec) = iVar1 + -5000;
+  return;
+}
+
+int NetTick(void)
+
+{
+                    /* WARNING: Could not recover jumptable at 0x006e55f0. Too many branches */
+                    /* WARNING: Treating indirect jump as call */
+  (*_DAT_008c9770)();
+  return;
+}
